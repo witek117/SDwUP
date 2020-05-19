@@ -1,0 +1,9 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  "../../../proba4.srcs/sources_1/new/coder.v" --include "../../../proba4.srcs/sources_1/bd/cotex_design/ipshared/7dd0/hdl" --include "../../../proba4.srcs/sources_1/bd/cotex_design/ipshared/7e3a/hdl"
+sv xil_defaultlib  "../../../proba4.srcs/sim_1/new/coder_tb.sv" --include "../../../proba4.srcs/sources_1/bd/cotex_design/ipshared/7dd0/hdl" --include "../../../proba4.srcs/sources_1/bd/cotex_design/ipshared/7e3a/hdl"
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

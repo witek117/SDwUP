@@ -1,0 +1,85 @@
+#-----------------------------------------------------------
+# Vivado v2016.4 (64-bit)
+# SW Build 1756540 on Mon Jan 23 19:11:23 MST 2017
+# IP Build 1755317 on Mon Jan 23 20:30:07 MST 2017
+# Start of session at: Mon May 18 19:04:33 2020
+# Process ID: 352
+# Current directory: C:/Witek/huffmann/ip_repo
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent8900 C:\Witek\huffmann\ip_repo\edit_myip2_v1_0.xpr
+# Log file: C:/Witek/huffmann/ip_repo/vivado.log
+# Journal file: C:/Witek/huffmann/ip_repo\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Witek/huffmann/ip_repo/edit_myip2_v1_0.xpr
+ipx::open_ipxact_file C:/Witek/huffmann/ip_repo/myip2_1.0/component.xml
+set_property core_revision 85 [ipx::current_core]
+ipx::create_xgui_files [ipx::current_core]
+ipx::update_checksums [ipx::current_core]
+ipx::save_core [ipx::current_core]
+update_ip_catalog -rebuild -repo_path c:/Witek/huffmann/ip_repo/myip2_1.0
+set_property core_revision 86 [ipx::current_core]
+ipx::create_xgui_files [ipx::current_core]
+ipx::update_checksums [ipx::current_core]
+ipx::save_core [ipx::current_core]
+update_ip_catalog -rebuild -repo_path c:/Witek/huffmann/ip_repo/myip2_1.0
+set_property core_revision 87 [ipx::current_core]
+ipx::create_xgui_files [ipx::current_core]
+ipx::update_checksums [ipx::current_core]
+ipx::save_core [ipx::current_core]
+update_ip_catalog -rebuild -repo_path c:/Witek/huffmann/ip_repo/myip2_1.0
+launch_simulation
+source myip2_v1_0.tcl
+close_sim
+set_property core_revision 88 [ipx::current_core]
+ipx::create_xgui_files [ipx::current_core]
+ipx::update_checksums [ipx::current_core]
+ipx::save_core [ipx::current_core]
+update_ip_catalog -rebuild -repo_path c:/Witek/huffmann/ip_repo/myip2_1.0
+set_property core_revision 89 [ipx::current_core]
+ipx::create_xgui_files [ipx::current_core]
+ipx::update_checksums [ipx::current_core]
+ipx::save_core [ipx::current_core]
+update_ip_catalog -rebuild -repo_path c:/Witek/huffmann/ip_repo/myip2_1.0
+set_property core_revision 90 [ipx::current_core]
+ipx::create_xgui_files [ipx::current_core]
+ipx::update_checksums [ipx::current_core]
+ipx::save_core [ipx::current_core]
+update_ip_catalog -rebuild -repo_path c:/Witek/huffmann/ip_repo/myip2_1.0
+set_property core_revision 91 [ipx::current_core]
+ipx::create_xgui_files [ipx::current_core]
+ipx::update_checksums [ipx::current_core]
+ipx::save_core [ipx::current_core]
+update_ip_catalog -rebuild -repo_path c:/Witek/huffmann/ip_repo/myip2_1.0
+set_property core_revision 92 [ipx::current_core]
+ipx::create_xgui_files [ipx::current_core]
+ipx::update_checksums [ipx::current_core]
+ipx::save_core [ipx::current_core]
+update_ip_catalog -rebuild -repo_path c:/Witek/huffmann/ip_repo/myip2_1.0
+set_property core_revision 93 [ipx::current_core]
+ipx::create_xgui_files [ipx::current_core]
+ipx::update_checksums [ipx::current_core]
+ipx::save_core [ipx::current_core]
+update_ip_catalog -rebuild -repo_path c:/Witek/huffmann/ip_repo/myip2_1.0
+set_property core_revision 94 [ipx::current_core]
+ipx::create_xgui_files [ipx::current_core]
+ipx::update_checksums [ipx::current_core]
+ipx::save_core [ipx::current_core]
+update_ip_catalog -rebuild -repo_path c:/Witek/huffmann/ip_repo/myip2_1.0
+launch_simulation
+source myip2_v1_0.tcl
+set_property core_revision 95 [ipx::current_core]
+ipx::create_xgui_files [ipx::current_core]
+ipx::update_checksums [ipx::current_core]
+ipx::save_core [ipx::current_core]
+update_ip_catalog -rebuild -repo_path c:/Witek/huffmann/ip_repo/myip2_1.0
+set_property core_revision 96 [ipx::current_core]
+ipx::create_xgui_files [ipx::current_core]
+ipx::update_checksums [ipx::current_core]
+ipx::save_core [ipx::current_core]
+update_ip_catalog -rebuild -repo_path c:/Witek/huffmann/ip_repo/myip2_1.0
+set_property core_revision 97 [ipx::current_core]
+ipx::create_xgui_files [ipx::current_core]
+ipx::update_checksums [ipx::current_core]
+ipx::save_core [ipx::current_core]
+update_ip_catalog -rebuild -repo_path c:/Witek/huffmann/ip_repo/myip2_1.0
+close_sim
