@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.4 (win64) Build 1756540 Mon Jan 23 19:11:23 MST 2017
-//Date        : Wed May 20 00:13:27 2020
+//Date        : Sun May 24 17:38:19 2020
 //Host        : DESKTOP-ASCN7E1 running 64-bit major release  (build 9200)
 //Command     : generate_target cotex_design.bd
 //Design      : cotex_design

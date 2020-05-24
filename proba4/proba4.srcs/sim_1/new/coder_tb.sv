@@ -24,7 +24,7 @@ module coder_tb();
     parameter SYMBOLS_COUNT = 28;
     
     reg clock;
-    reg dataClock;
+    reg clockEnable;
     reg reset;
     reg messageLoaded;
     reg dataLoaded;
@@ -50,7 +50,7 @@ module coder_tb();
 //    reg [7:0] symbolsLength[0:SYMBOLS_COUNT]    = {SYMBOLS_COUNT, 2, 0, 4, 0, 3, 3, 0, 0, 5, 5, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 4, 4, 0, 4, 0, 0, 4, 0};
 
     
-    coder cod(clock, reset, dataClock, messageLoaded, dataLoaded, manualReset, symbol, symbolLength, character, message, dataReady, dataOut, log);
+    coder cod(clock, reset, clockEnable, messageLoaded, dataLoaded, manualReset, symbol, symbolLength, character, message, dataReady, dataOut, log);
     
     reg [31:0] readyBits [100];
     reg [31:0] allBitsCount;
@@ -62,7 +62,7 @@ module coder_tb();
          clock <= 1'b1;
          messageLoaded <= 1'b0;
          dataLoaded <= 1'b0;
-         dataClock <= 1'b0;
+         clockEnable <= 1'b0;
          manualReset <= 1'b0;
     end
     
@@ -102,8 +102,8 @@ module coder_tb();
                 messageLoaded <= 1'b1;
             end   
             
-            #100 dataClock = 1'b1;
-            #100 dataClock = 1'b0;
+            #100 clockEnable = 1'b1;
+            #100 clockEnable = 1'b0;
             
             i = i + 1;
         end
@@ -115,8 +115,8 @@ module coder_tb();
         end
         
         for(int i =0; i < 50; i++) begin
-            #100 dataClock = 1'b1;
-            #100 dataClock = 1'b0;
+            #100 clockEnable = 1'b1;
+            #100 clockEnable = 1'b0;
             readyBits[i] = dataOut;
             if (i == 0) begin
                 allBitsCount = dataOut >> 16;

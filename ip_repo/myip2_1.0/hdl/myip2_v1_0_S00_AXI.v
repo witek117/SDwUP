@@ -410,7 +410,7 @@
     coder coder_inst(
         S_AXI_ACLK, // clock,  
         ARESET, // reset, 
-        slv_reg0[0],        // dataClock,
+        slv_reg0[0],        // clockEable,
         slv_reg0[1],        // messageLoaded, 
         slv_reg0[2],        // dataLoaded, 
         slv_reg0[3],        // manualReset, 
@@ -420,9 +420,9 @@
         slv_reg0[31:24],    // message,
         slv_wire2[15:0],    // dataReady,
         slv_wire3[15:0],    // dataOut
-        slv_wire2[31:16],   // dataReady,
         slv_wire3[31:16]    // log
     ); 
+    
 	// User logic ends
 
 	endmodule
@@ -430,7 +430,7 @@
     module coder(
     input  clock,  
     input  reset, 
-    input  dataClock,
+    input  clockEnable,
     input  messageLoaded, 
     input  dataLoaded, 
     input  manualReset,
@@ -466,7 +466,7 @@ reg [31:0] k = 32'h0;
 reg [31:0] j = 32'h0;  
 
 // detecting clock data change  
-reg previousDataClock;
+reg previousClockEnable;
 
 parameter BUFFER_SIZE = 100;
 // buffers for input data
@@ -518,15 +518,15 @@ always @(posedge clock) begin
         characterIndex <= 0;
         actualCharacterMessage <= 0;
         actualCharacterSymbol <= 0;
-        previousDataClock <= 0;
+        previousClockEnable <= 0;
         outputBits[0] <= 0;
      end else begin
         case(stateMachine)
             M_LOAD_DATA: begin
                 case(loadDataMachine)
                     DETECT_EDGE: begin
-                        if (dataClock != previousDataClock) begin
-                            previousDataClock <= dataClock;
+                        if (clockEnable != previousClockEnable) begin
+                            previousClockEnable <= clockEnable;
                             loadDataMachine <= EDGE_DETECTED;
                         end else begin
                             loadDataMachine <= DETECT_EDGE;
@@ -534,7 +534,7 @@ always @(posedge clock) begin
                     end
                     
                     EDGE_DETECTED: begin
-                        if (dataClock) begin
+                        if (clockEnable) begin
                             loadDataMachine <= HIGH_EDGE;
                         end else begin
                             loadDataMachine <= DETECT_EDGE;
@@ -555,7 +555,7 @@ always @(posedge clock) begin
                         if(dataLoaded && messageLoaded) begin
                             stateMachine <= M_PARSE_DATA;
                             loadDataMachine <= DETECT_EDGE;
-                            previousDataClock <= 0;
+                            previousClockEnable <= 0;
                             k <= 0;
                         end else begin
                             loadDataMachine <= INCREMENT_K;
@@ -650,8 +650,8 @@ always @(posedge clock) begin
             M_DATA_PUSH: begin
                 case(pushDataMachine)
                     DETECT_EDGE: begin
-                        if (dataClock != previousDataClock) begin
-                            previousDataClock <= dataClock;
+                        if (clockEnable != previousClockEnable) begin
+                            previousClockEnable <= clockEnable;
                             pushDataMachine <= EDGE_DETECTED;
                         end else begin
                             pushDataMachine <= DETECT_EDGE;
@@ -659,7 +659,7 @@ always @(posedge clock) begin
                     end
                     
                     EDGE_DETECTED: begin
-                        if (dataClock) begin
+                        if (clockEnable) begin
                             pushDataMachine <= HIGH_EDGE;
                         end else begin
                             pushDataMachine <= DETECT_EDGE;
