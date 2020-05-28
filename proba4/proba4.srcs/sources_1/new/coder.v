@@ -18,11 +18,11 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-   
+
     module coder(
     input  clock,  
     input  reset, 
-    input  dataClock,
+    input  clockEnable,
     input  messageLoaded, 
     input  dataLoaded, 
     input  manualReset,
@@ -58,7 +58,7 @@ reg [31:0] k = 32'h0;
 reg [31:0] j = 32'h0;  
 
 // detecting clock data change  
-reg previousDataClock;
+reg previousClockEnable;
 
 parameter BUFFER_SIZE = 100;
 // buffers for input data
@@ -110,15 +110,15 @@ always @(posedge clock) begin
         characterIndex <= 0;
         actualCharacterMessage <= 0;
         actualCharacterSymbol <= 0;
-        previousDataClock <= 0;
+        previousClockEnable <= 0;
         outputBits[0] <= 0;
      end else begin
         case(stateMachine)
             M_LOAD_DATA: begin
                 case(loadDataMachine)
                     DETECT_EDGE: begin
-                        if (dataClock != previousDataClock) begin
-                            previousDataClock <= dataClock;
+                        if (clockEnable != previousClockEnable) begin
+                            previousClockEnable <= clockEnable;
                             loadDataMachine <= EDGE_DETECTED;
                         end else begin
                             loadDataMachine <= DETECT_EDGE;
@@ -126,7 +126,7 @@ always @(posedge clock) begin
                     end
                     
                     EDGE_DETECTED: begin
-                        if (dataClock) begin
+                        if (clockEnable) begin
                             loadDataMachine <= HIGH_EDGE;
                         end else begin
                             loadDataMachine <= DETECT_EDGE;
@@ -147,7 +147,7 @@ always @(posedge clock) begin
                         if(dataLoaded && messageLoaded) begin
                             stateMachine <= M_PARSE_DATA;
                             loadDataMachine <= DETECT_EDGE;
-                            previousDataClock <= 0;
+                            previousClockEnable <= 0;
                             k <= 0;
                         end else begin
                             loadDataMachine <= INCREMENT_K;
@@ -242,8 +242,8 @@ always @(posedge clock) begin
             M_DATA_PUSH: begin
                 case(pushDataMachine)
                     DETECT_EDGE: begin
-                        if (dataClock != previousDataClock) begin
-                            previousDataClock <= dataClock;
+                        if (clockEnable != previousClockEnable) begin
+                            previousClockEnable <= clockEnable;
                             pushDataMachine <= EDGE_DETECTED;
                         end else begin
                             pushDataMachine <= DETECT_EDGE;
@@ -251,7 +251,7 @@ always @(posedge clock) begin
                     end
                     
                     EDGE_DETECTED: begin
-                        if (dataClock) begin
+                        if (clockEnable) begin
                             pushDataMachine <= HIGH_EDGE;
                         end else begin
                             pushDataMachine <= DETECT_EDGE;
@@ -277,31 +277,31 @@ always @(posedge clock) begin
                     end
                 endcase               
             end  
-            
-            M_DATA_CLEAR: begin
-                case(clearDataMachine) 
-                    CLEAR_BYTE: begin
-                        if (i < BUFFER_SIZE) begin
-                            allMessage[i] <= 0;
-                            symbols[i] <= 0;
-                            symbolsLength[i] <= 0;
-                            characters[i] <= 0;
-                            outputBits[i] <= 0;
-                            clearDataMachine <= INCREMENT_I;
-                        end else begin
-                            clearDataMachine <= CLEAR_BYTE;
-                            i <= 0;
-                            stateMachine <= M_RESET;
-                        end
-                    end
-                    
-                    INCREMENT_I: begin
-                        i <= i + 1;
-                        clearDataMachine <= CLEAR_BYTE;
-                    end
-                endcase
-            end   
-        endcase
-     end
- end
-endmodule
+          M_DATA_CLEAR: begin
+                  case(clearDataMachine) 
+                      CLEAR_BYTE: begin
+                          if (i < BUFFER_SIZE) begin
+                              allMessage[i] <= 0;
+                              symbols[i] <= 0;
+                              symbolsLength[i] <= 0;
+                              characters[i] <= 0;
+                              outputBits[i] <= 0;
+                              clearDataMachine <= INCREMENT_I;
+                          end else begin
+                              clearDataMachine <= CLEAR_BYTE;
+                              i <= 0;
+                              stateMachine <= M_RESET;
+                          end
+                      end
+                      
+                      INCREMENT_I: begin
+                          i <= i + 1;
+                          clearDataMachine <= CLEAR_BYTE;
+                      end
+                  endcase
+              end   
+          endcase
+       end
+   end
+  endmodule
+
